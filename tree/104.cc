@@ -68,7 +68,7 @@ TEST(tree, 2) {
     };
 }
 
-// BFS有个缺点就是无法得到第n层与第n+1层之间的界限，从而导致无法统计
+
 TEST(tree, 3) {
     using namespace std;
 
@@ -85,29 +85,27 @@ TEST(tree, 3) {
     };
 
     class Solution {
-        int level = 0;
     public:
         int maxDepth(TreeNode *root) {
             queue < TreeNode * > q;
             if (root == nullptr) return 0;
             q.push(root);
-            level++;
+            int res = 1;
             while (!q.empty()) {
-                bool flag = false;
-                if (q.front()->left != nullptr) {
-                    q.push(q.front()->left);
-                    flag = true;
+                int size = q.size();
+                while (size > 0){
+                    if (q.front()->left != nullptr) {
+                        q.push(q.front()->left);
+                    }
+                    if (q.front()->right != nullptr) {
+                        q.push(q.front()->right);
+                    }
+                    q.pop();
+                    size--;
                 }
-                if (q.front()->right != nullptr) {
-                    q.push(q.front()->right);
-                    flag = true;
-                }
-                if (flag) {
-                    level++;
-                }
-                q.pop();
+                res++;
             }
-            return level;
+            return res;
         }
     };
 }
