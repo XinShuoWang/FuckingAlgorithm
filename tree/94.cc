@@ -58,7 +58,8 @@ TEST(tree, 94_2) {
             vector<int> res;
             stack < TreeNode * > s;
             TreeNode *t = root;
-            // 经过调试可以发现
+            // 经过调试可以发现t != nullptr语句是为了保证第一次的
+            // 时候可以正确运行而出现的，否则一开始就无法进入循环
             while (t != nullptr || !s.empty()) {
                 while (t != nullptr) {
                     s.push(t);
