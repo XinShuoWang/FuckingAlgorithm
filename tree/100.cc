@@ -3,21 +3,10 @@
 //
 #include <bits/stdc++.h>
 #include <gtest/gtest.h>
+#include "TreeNode.h"
 
 TEST(tree, dfs) {
     using namespace std;
-
-    struct TreeNode {
-        int val;
-        TreeNode *left;
-        TreeNode *right;
-
-        TreeNode() : val(0), left(nullptr), right(nullptr) {}
-
-        TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-
-        TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-    };
 
     class Solution {
     public:
@@ -41,18 +30,6 @@ TEST(tree, dfs) {
 
 TEST(tree, bfs) {
     using namespace std;
-
-    struct TreeNode {
-        int val;
-        TreeNode *left;
-        TreeNode *right;
-
-        TreeNode() : val(0), left(nullptr), right(nullptr) {}
-
-        TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-
-        TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-    };
 
     class Solution {
     public:
