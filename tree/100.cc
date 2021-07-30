@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include "TreeNode.h"
 
-TEST(tree, dfs) {
+TEST(tree_100, dfs) {
     using namespace std;
 
     class Solution {
@@ -28,7 +28,7 @@ TEST(tree, dfs) {
     };
 }
 
-TEST(tree, bfs) {
+TEST(tree_100, bfs) {
     using namespace std;
 
     class Solution {

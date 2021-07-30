@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include "TreeNode.h"
 
-TEST(tree, 111) {
+TEST(tree_111, BFS) {
     using namespace std;
 
     class Solution {
@@ -21,10 +21,10 @@ TEST(tree, 111) {
                     if (q.front()->right == nullptr && q.front()->left == nullptr) {
                         return level;
                     }
-                    if(q.front()->right != nullptr){
+                    if (q.front()->right != nullptr) {
                         q.push(q.front()->right);
                     }
-                    if(q.front()->left != nullptr){
+                    if (q.front()->left != nullptr) {
                         q.push(q.front()->left);
                     }
                     q.pop();
@@ -33,6 +33,32 @@ TEST(tree, 111) {
                 level++;
             }
             return level;
+        }
+    };
+}
+
+TEST(tree_111, DFS) {
+    using namespace std;
+
+    class Solution {
+    public:
+        int minDepth(TreeNode *root) {
+            if (root == nullptr)return 0;
+            int left = minDepth(root->left);
+            int right = minDepth(root->right);
+            if (left == 0 && right == 0) {
+                return 1;
+            }
+            if (left != 0 && right == 0) {
+                return left + 1;
+            }
+            if (left == 0 && right != 0) {
+                return right + 1;
+            }
+            if (left != 0 && right != 0) {
+                return min(left, right) + 1;
+            }
+            return 0;
         }
     };
 }
