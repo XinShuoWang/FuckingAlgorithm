@@ -42,6 +42,6 @@ add_executable(FuckingAlgorithm
         tree/226.cc
         tree/257.cc
         tree/235.cc
-        tree/404.cc tree/m0404.cc tree/543.cc tree/501.cc dp/53.cc dp/152.cc dp/jz10.cc)
+        tree/404.cc tree/m0404.cc tree/543.cc tree/501.cc dp/53.cc dp/152.cc dp/jz10.cc tree/m0405.cc)
 
 target_link_libraries(FuckingAlgorithm gtest pthread)
