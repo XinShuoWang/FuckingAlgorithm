@@ -23,3 +23,26 @@ TEST(tree_145, recursion) {
         }
     };
 }
+
+
+TEST(tree_145, stack) {
+    using namespace std;
+    class Solution {
+    public:
+        vector<int> postorderTraversal(TreeNode *root) {
+            vector<int> res;
+            stack < TreeNode * > s;
+            while (root != nullptr || !s.empty()) {
+                while (root != nullptr) {
+                    s.push(root);
+                    root = root->left;
+                }
+                root = s.top();
+                s.pop();
+                res.push_back(root->val);
+                root = root->right;
+            }
+            return res;
+        }
+    };
+}
