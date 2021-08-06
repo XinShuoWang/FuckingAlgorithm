@@ -6,42 +6,50 @@ include_directories(include)
 
 add_executable(FuckingAlgorithm
         main.cpp
-        tree/94.cc
-        tree/100.cc
-        tree/101.cc
-        tree/104.cc
-        tree/111.cc
-        tree/144.cc
-        tree/112.cc
-        disjoint-set/P1551.cc
-        disjoint-set/547.cc
-        tree/102.cc
-        tree/107.cc
-        tree/114.cc
-        tree/341.cc
-        tree/222.cc
-        dp/70.cc
-        trick/p1226.cc
-        others/5830.cc
-        dp/55.cc
-        tree/98.cc
-        tree/113.cc
-        tree/513.cc
-        backtrace/46.cc
-        others/66.cc
-        others/566.cc
-        others/67.cc
-        others/20.cc
-        tree/108.cc
-        tree/145.cc
-        tree/872.cc
-        tree/559.cc
-        tree/589.cc
-        tree/590.cc
-        tree/814.cc
-        tree/226.cc
-        tree/257.cc
-        tree/235.cc
-        tree/404.cc tree/m0404.cc tree/543.cc tree/501.cc dp/53.cc dp/152.cc dp/jz10.cc tree/m0405.cc)
+        src/tree/94.cc
+        src/tree/100.cc
+        src/tree/101.cc
+        src/tree/104.cc
+        src/tree/111.cc
+        src/tree/144.cc
+        src/tree/112.cc
+        src/disjoint-set/P1551.cc
+        src/disjoint-set/547.cc
+        src/tree/102.cc
+        src/tree/107.cc
+        src/tree/114.cc
+        src/tree/341.cc
+        src/tree/222.cc
+        src/dp/70.cc
+        src/trick/p1226.cc
+        src/others/5830.cc
+        src/dp/55.cc
+        src/tree/98.cc
+        src/tree/113.cc
+        src/tree/513.cc
+        src/backtrace/46.cc
+        src/others/66.cc
+        src/others/566.cc
+        src/others/67.cc
+        src/others/20.cc
+        src/tree/108.cc
+        src/tree/145.cc
+        src/tree/872.cc
+        src/tree/559.cc
+        src/tree/589.cc
+        src/tree/590.cc
+        src/tree/814.cc
+        src/tree/226.cc
+        src/tree/257.cc
+        src/tree/235.cc
+        src/tree/404.cc
+        src/tree/m0404.cc
+        src/tree/543.cc
+        src/tree/501.cc
+        src/dp/53.cc
+        src/dp/152.cc
+        src/dp/jz10.cc
+        src/tree/m0405.cc
+        src/others/146.cc src/tree/1104.cc src/tree/103.cc src/tree/105.cc src/tree/106.cc)
 
 target_link_libraries(FuckingAlgorithm gtest pthread)
