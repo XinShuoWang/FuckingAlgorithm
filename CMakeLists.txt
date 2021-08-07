@@ -56,6 +56,17 @@ add_executable(FuckingAlgorithm
         src/tree/105.cc
         src/tree/106.cc
         src/tree/173.cc
-        src/tree/199.cc src/dp/322.cc src/dp/5.cc src/dp/64.cc src/monotonic-stack/496.cc src/others/503.cc src/monotonic-stack/739.cc src/monotonic-stack/42.cc src/monotonic-stack/316.cc src/monotonic-stack/901.cc src/monotonic-stack/402.cc src/monotonic-stack/581.cc)
+        src/tree/199.cc
+        src/dp/322.cc
+        src/dp/5.cc
+        src/dp/64.cc
+        src/monotonic-stack/496.cc
+        src/others/503.cc
+        src/monotonic-stack/739.cc
+        src/monotonic-stack/42.cc
+        src/monotonic-stack/316.cc
+        src/monotonic-stack/901.cc
+        src/monotonic-stack/402.cc
+        src/monotonic-stack/581.cc)
 
 target_link_libraries(FuckingAlgorithm gtest pthread)
