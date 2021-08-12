@@ -77,6 +77,11 @@ add_executable(FuckingAlgorithm
         src/normal/1008.cc
         src/review/889.cc
         src/normal/1302.cc
-        src/normal/1376.cc src/normal/654.cc src/normal.cc src/normal/1267.cc src/124.cc)
+        src/normal/1376.cc
+        src/normal/654.cc
+        src/normal/1267.cc
+        src/124.cc src/1377.cc
+        src/review/121.cc
+        src/normal/m0801.cc src/normal/jz088.cc src/normal/1137.cc src/review/206.cc include/ListNode.h src/21.cc)
 
 target_link_libraries(FuckingAlgorithm gtest pthread)
