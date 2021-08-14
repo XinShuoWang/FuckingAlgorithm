@@ -1,10 +1,24 @@
-1. 解释
+1. 刷题环境
+   1. 编译器使用的是虚拟机里面的GCC 9，IDE使用CLion，CLion需要配置一下新建文件模板，参考下面：
+   ```
+    //
+    // Created by XinShuo Wang on ${DATE} ${TIME}
+    //
+    #[[#include]]# <bits/stdc++.h>
+    #[[#include]]# <gtest/gtest.h>
+    
+    TEST(leetcode_${FILE_NAME}, 1){
+    using namespace std;
+    }
+    ```
+   2. 使用gtest框架，将每一题当做一个测试用例来写，在用例之间是隔离的。
+2. 解释
     - p开头的文件，例如`p1551.cc`就是洛谷的题目
     - 无标识的是Leetcode的题目
     - jz开头的是剑指offer的题目
     - m就是《程序员面试金典》的题目
 
-2. 笔记
+3. 笔记
 
 - 递归思想
     - 大胆写初始条件

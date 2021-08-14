@@ -24,22 +24,13 @@ TEST(others_21, 1) {
       ListNode *res = nullptr, *t = nullptr;
       bool flag = false;
       while (l1 != nullptr || l2 != nullptr) {
-        if (l1 == nullptr && l2 == nullptr) {
-          break;
-        } else if (l1 == nullptr && l2 != nullptr) {
-          q.push(l2);
-          l2 = l2->next;
-        } else if (l1 != nullptr && l2 == nullptr) {
+        if (l1 != nullptr) {
           q.push(l1);
           l1 = l1->next;
-        } else if (l1 != nullptr && l2 != nullptr) {
-          if (l1->val > l2->val) {
-            q.push(l2);
-            l2 = l2->next;
-          } else {
-            q.push(l1);
-            l1 = l1->next;
-          }
+        }
+        if (l2 != nullptr) {
+          q.push(l2);
+          l2 = l2->next;
         }
         if (!flag) {
           res = q.top();
@@ -51,6 +42,11 @@ TEST(others_21, 1) {
           t = t->next;
           q.pop();
         }
+      }
+      while (!q.empty()) {
+        t = q.top();
+        t = t->next;
+        q.pop();
       }
       t->next = nullptr;
       return res;
