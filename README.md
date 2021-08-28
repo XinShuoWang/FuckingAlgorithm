@@ -17,8 +17,16 @@
     - 无标识的是Leetcode的题目
     - jz开头的是剑指offer的题目
     - m就是《程序员面试金典》的题目
+    - mt开头的是美团公司的面试题目
 
-3. 笔记
+3. 标准库函数
+    - 判断字母（不区分大小写）：isalpha(); 大写字母：isupper(); 小写字母：islower(); 数字：isdigit(); 字母和数字：isalnum();
+    - min_element()、min_element()得到容器内最值
+    - accumulate用来在容器内求和
+    - set容器是用红黑树实现的，因此是有序的
+    
+
+4. 笔记
    - 递归思想
        - 大胆写初始条件
 
