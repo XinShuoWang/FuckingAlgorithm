@@ -36,3 +36,31 @@ TEST(leetcode_39, 1) {
   vector<int> v{2, 3, 6, 7};
   solution.combinationSum(v, 7);
 }
+
+TEST(leetcode_39, 2) {
+  using namespace std;
+  class Solution {
+    vector<vector<int>> ans;
+    vector<int> path;
+
+   public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+      work(candidates, target, 0);
+      return ans;
+    }
+
+    void work(vector<int>& candidates, int target, int idx) {
+      if (target < 0) return;
+      if (target == 0) {
+        ans.push_back(path);
+        return;
+      }
+      for (int i = idx; i < candidates.size(); ++i) {
+        path.push_back(candidates[i]);
+        // 为了保证“不连续”需要是i而不是idx作为参数
+        work(candidates, target - candidates[i], i);
+        path.pop_back();
+      }
+    }
+  };
+}
