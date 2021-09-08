@@ -30,14 +30,3 @@ TEST(leetcode_797, 1) {
     }
   };
 }
-
-
-TEST(leetcode_797, 2) {
-  using namespace std;
-  class Solution {
-   public:
-    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
-
-    }
-  };
-}
