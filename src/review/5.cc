@@ -7,39 +7,107 @@
 TEST(dp_5, DFS) {
   using namespace std;
   class Solution {
-    set<pair<int, int>> cache;
-
    public:
     string longestPalindrome(string s) {
-      vector<string> v;
+      int len = INT_MIN;
+      string ans;
       for (int i = 0; i < s.length(); ++i) {
-        for (int j = 1; j < s.length() - i; ++j) {
-          //if()
-          if (can(s, i, j)) {
-            v.push_back(s.substr(i, j + 1));
-          } else {
-            pair<int, int> t;
-            t.first = i;
-            t.second = j;
-            cache.insert(t);
+        for (int j = i + 1; j < s.length(); ++j) {
+          if (j - i > len && can(s, i, j)) {
+            ans = s.substr(i, j - i + 1);
+            len = j - i;
           }
         }
       }
-      string res = s.substr(0, 1);
-      for (int i = 0; i < v.size(); ++i) {
-        if (v[i].length() > res.length()) res = v[i];
-      }
-      return res;
+      return ans;
     }
 
-    bool can(string& s, int start, int len) {
-      int end = start + len;
+    bool can(string& s, int start, int end) {
       while (start < end) {
         if (s[start] != s[end]) return false;
         start++;
         end--;
       }
       return true;
+    }
+  };
+}
+
+TEST(dp_5, 2) {
+  using namespace std;
+  class Solution {
+   public:
+    string longestPalindrome(string s) {
+      int max_len = 1;
+      string ans = s.substr(0, 1);
+      for (int i = 0; i < s.length(); ++i) {
+        for (int j = i + 1; j < s.length(); ++j) {
+          int len = j - i + 1;
+          if (work(s, i, j) && len > max_len) {
+            max_len = len;
+            ans = s.substr(i, len);
+          }
+        }
+      }
+      return ans;
+    }
+
+    bool work(string& s, int start, int end) {
+      if (start >= end) return true;
+      return s[start] == s[end] && work(s, start + 1, end - 1);
+    }
+  };
+}
+
+TEST(dp_5, 3) {
+  using namespace std;
+  class Solution {
+    unordered_map<uint64_t, bool> cache;
+    unordered_map<uint64_t, bool>::iterator it;
+
+    uint64_t make(uint32_t x, uint32_t y) {
+      uint64_t ans = x;
+      ans <<= 32;
+      return ans + y;
+    }
+
+   public:
+    string longestPalindrome(string s) {
+      int max_len = 1;
+      string ans = s.substr(0, 1);
+      cache.reserve(ceil(s.length() * s.length() / 0.75));
+      for (int i = 0; i < s.length(); ++i) {
+        for (int j = s.length() - 1; j >= i; --j) {
+          int len = j - i + 1;
+          if (work(s, i, j) && len > max_len) {
+            max_len = len;
+            ans = s.substr(i, len);
+          }
+        }
+      }
+      return ans;
+    }
+
+    bool work(string& s, int start, int end) {
+      if ((it = cache.find(make(start, end))) != cache.end()) return it->second;
+      if (start >= end) return true;
+      bool ans = work(s, start + 1, end - 1) && s[start] == s[end];
+      cache[make(start, end)] = ans;
+      return ans;
+    }
+  };
+}
+
+TEST(dp_5, 4) {
+  using namespace std;
+  class Solution {
+   public:
+    string longestPalindrome(string s) {
+      int n = s.length();
+      vector<vector<bool>> v(n, vector<bool>(n, true));
+      for (int i = 0; i < n; ++i) {
+        
+      }
     }
   };
 }
