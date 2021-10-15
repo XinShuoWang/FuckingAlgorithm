@@ -37,3 +37,27 @@ TEST(leetcode_jz_10_2, 2) {
     }
   };
 }
+
+TEST(leetcode_jz_10_2, 3) {
+  using namespace std;
+  class Solution {
+   public:
+    int numWays(int n) {
+      int v[101] = {0};
+      switch (n) {
+        case 0:
+          return 1;
+        case 1:
+          return 1;
+        case 2:
+          return 2;
+        default:
+          v[0] = 1, v[1] = 1, v[2] = 2;
+          for (int i = 3; i <= n; ++i) {
+            v[i] = (v[i - 1] + v[i - 2]) % 1000000007;
+          }
+          return v[n];
+      }
+    }
+  };
+}
