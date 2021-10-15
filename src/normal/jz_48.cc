@@ -24,3 +24,25 @@ TEST(leetcode_jz_48, 1) {
     }
   };
 }
+
+
+TEST(leetcode_jz_48, 2) {
+  using namespace std;
+  class Solution {
+   public:
+    int lengthOfLongestSubstring(string s) {
+      bitset<256> e{0};
+      int ans = 0, i = 0, j = 0;
+      while (i < s.length()) {
+        while (j < s.length() && e[s[j]] == 0) {
+          e[s[j]] = 1;
+          j++;
+        }
+        ans = max(ans, j - i);
+        e[s[i]] = 0;
+        i++;
+      }
+      return ans;
+    }
+  };
+}
