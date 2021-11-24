@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/24 10:04
 //
 
 /**
@@ -40,23 +40,23 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_714, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    int maxProfit(vector<int>& prices, int fee) {
+      const int n = prices.size();
+      vector<vector<int>> dp(2, vector<int>(n, 0));
+      // 为了方便计算收益，就把每日的price作为收益
+      // 否则还需要计算差价
+      dp[0][0] = 0, dp[1][0] = -prices[0];
+      for (int i = 1; i < prices.size(); ++i) {
+        // 第i天手里没有股票，
+        dp[0][i] = max(dp[0][i - 1], dp[1][i - 1] + prices[i] - fee);
+        // 第i天手里有股票，
+        dp[1][i] = max(dp[0][i - 1] - prices[i], dp[1][i - 1]);
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
-      }
-      return ans;
+      return dp[n - 1][0];
     }
   };
 }

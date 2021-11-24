@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/7 14:43
 //
 
 /**
@@ -40,21 +40,78 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_jz_62, 1) {
+  using namespace std;
+  class CircleList {
+    list<int> data;
+    list<int>::iterator it;
+
+   public:
+    CircleList(int n) {
+      for (int i = 0; i < n; ++i) {
+        data.push_back(i);
+      }
+      it = data.begin();
+    }
+
+    int len() { return data.size(); }
+
+    void del(int step) {
+      auto t = it == data.end() ? data.begin() : it;
+      while (step > 1) {
+        t++;
+        if (t == data.end()) t = data.begin();
+        step--;
+      }
+      it = ++t;
+      --t;
+      // cout << *t << endl;
+      data.erase(t);
+    }
+
+    int get() { return data.front(); }
+  };
+
+  class Solution {
+   public:
+    int lastRemaining(int n, int m) {
+      CircleList circleList(n);
+      while (circleList.len() != 1) {
+        circleList.del(m);
+      }
+      return circleList.get();
+    }
+  };
+}
+
+TEST(leetcode_jz_62, 2) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    int lastRemaining(int n, int m) {
+      vector<int> data(n, 0);
+      for (int i = 0; i < n; ++i) {
+        data[i] = i;
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+      int idx = 0;
+      while (data.size() > 1) {
+        idx = (idx + m - 1) % n;
+        data.erase(data.begin() + idx);
+        n--;
+      }
+      return data.front();
+    }
+  };
+}
+
+TEST(leetcode_jz_62, 3) {
+  using namespace std;
+  class Solution {
+   public:
+    int lastRemaining(int n, int m) {
+      int ans = 0;
+      for (int i = 2; i <= n; ++i) {
+        ans = (ans + m) % i;
       }
       return ans;
     }

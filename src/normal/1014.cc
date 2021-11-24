@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/22 9:54
 //
 
 /**
@@ -40,21 +40,35 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_1014, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    int maxScoreSightseeingPair(vector<int>& values) {
+      int ans = INT_MIN;
+      for (int i = 0; i < values.size(); ++i) {
+        for (int j = i + 1; j < values.size(); ++j) {
+          ans = max(ans, values[i] + values[j] + i - j);
+        }
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+      return ans;
+    }
+  };
+}
+
+TEST(leetcode_1014, 2) {
+  using namespace std;
+  class Solution {
+   public:
+    int maxScoreSightseeingPair(vector<int>& values) {
+      vector<int> v(values);
+      int val = INT_MIN;
+      for (int i = 0; i < v.size(); ++i) {
+        v[i] = max(v[i] + i, val);
+      }
+      int ans = INT_MIN;
+      for (int i = 0; i < v.size(); ++i) {
+        ans = max(ans, v[i] - i);
       }
       return ans;
     }

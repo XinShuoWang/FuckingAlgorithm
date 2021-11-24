@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/15 9:53
 //
 
 /**
@@ -40,23 +40,43 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_jz_51, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
-      }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+    int reversePairs(vector<int>& nums) {
+      int ans = 0;
+      for (int i = 0; i < nums.size(); ++i) {
+        for (int j = i + 1; j < nums.size(); ++j) {
+          if (nums[i] > nums[j]) ans++;
+        }
       }
       return ans;
     }
+  };
+}
+
+TEST(leetcode_jz_51, 2) {
+  using namespace std;
+  class Solution {
+   public:
+    int reversePairs(vector<int>& nums) {
+      int ans = 0;
+      for (int i = 0; i < nums.size(); ++i) {
+        for (int j = i + 1; j < nums.size(); ++j) {
+          // ans += (nums[i] > nums[j]);
+          ans += ((nums[i] - nums[j]) >> 31);
+        }
+      }
+      return ans;
+    }
+  };
+}
+
+TEST(leetcode_jz_51, 3) {
+  using namespace std;
+  class Solution {
+   public:
+    int reversePairs(vector<int>& nums) {}
   };
 }

@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/21 18:38
 //
 
 /**
@@ -40,23 +40,29 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_2053, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    string kthDistinct(vector<string>& arr, int k) {
+      vector<string> ans;
+      for (int i = 0; i < arr.size(); ++i) {
+        bool flag = true;
+        for (int j = 0; j < arr.size(); ++j) {
+          if (j != i && arr[i] == arr[j]) {
+            flag = false;
+            break;
+          }
+        }
+        if (flag) {
+          ans.push_back(arr[i]);
+        }
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+      if (ans.size() <= k) {
+        return ans[k - 1];
+      } else {
+        return "";
       }
-      return ans;
     }
   };
 }

@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/20 10:59
 //
 
 /**
@@ -40,23 +40,23 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_25, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    ListNode* reverseKGroup(ListNode* head, int k) {
+      vector<ListNode*> v;
+      while (head != nullptr) {
+        v.push_back(head);
+        head = head->next;
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+      for (int i = 0; i < v.size() / k; ++i){
+        reverse(v.begin() + k * i, v.begin() + k * (i + 1));
       }
-      return ans;
+      for (int i = 0; i < v.size() - 1; ++i)
+        v[i]->next = v[i + 1];
+      v[v.size()-1]->next = nullptr;
+      return v[0];
     }
   };
 }

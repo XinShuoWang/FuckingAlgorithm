@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/21 14:46
 //
 
 /**
@@ -40,21 +40,19 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_1567, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
-      }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+    int getMaxLen(vector<int>& nums) {
+      int ans = 0;
+      for (int i = 0; i < nums.size(); ++i) {
+        int t = nums[i];
+        if (t > 0) ans = max(ans, 1);
+        for (int j = i + 1; j < nums.size(); ++j) {
+          t *= nums[j];
+          if (t > 0) ans = max(ans, j - i);
+        }
       }
       return ans;
     }

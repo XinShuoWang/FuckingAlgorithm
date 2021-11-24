@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/18 11:52
 //
 
 /**
@@ -40,23 +40,73 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_740, 1) {
   using namespace std;
   class Solution {
+    int ans;
+    unordered_map<int, int> del;
+
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    Solution() { ans = INT_MIN; }
+
+    void work(int key) {
+      if (del.find(key) == del.end())
+        del[key] = 1;
+      else
+        del[key] += 1;
+    }
+
+    void dfs(vector<int>& nums, int v, int i) {
+      if (i >= nums.size()) {
+        ans = max(ans, v);
+        return;
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+      if (del.find(nums[i]) == del.end() || del[nums[i]] == 0) {
+        work(nums[i] - 1), work(nums[i] + 1);
+        dfs(nums, v + nums[i], i + 1);
+        del[nums[i] - 1] -= 1, del[nums[i] + 1] -= 1;
       }
+      dfs(nums, v, i + 1);
+    }
+
+    int deleteAndEarn(vector<int>& nums) {
+      vector<bool> visited(nums.size(), false);
+      dfs(nums, 0, 0);
       return ans;
+    }
+  };
+}
+
+TEST(leetcode_740, 2) {
+  using namespace std;
+  class Solution {
+    unordered_map<int, int> cache;
+    unordered_map<int, int>::iterator it;
+
+   public:
+    int dfs(vector<int>& data, int i) {
+      if (i >= data.size()) return 0;
+      if ((it = cache.find(i)) != cache.end()) return it->second;
+      int ans = max(dfs(data, i + 2) + data[i], dfs(data, i + 1));
+      cache[i] = ans;
+      return ans;
+    }
+
+    int deleteAndEarn(vector<int>& nums) {
+      sort(nums.begin(), nums.end(), [](int x, int y) { return x < y; });
+      map<int, int> m;
+      for (int& num : nums) {
+        if (m.find(num) != m.end())
+          m[num] += 1;
+        else
+          m[num] = 1;
+      }
+      vector<int> data;
+      for (auto& kv : m) {
+        data.push_back(kv.first * kv.second);
+        if (m.find(kv.first + 1) == m.end()) data.push_back(0);
+      }
+      return dfs(data, 0);
     }
   };
 }

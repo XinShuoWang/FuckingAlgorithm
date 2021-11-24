@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/21 15:18
 //
 
 /**
@@ -40,23 +40,16 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_58, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
-      }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
-      }
-      return ans;
+    int lengthOfLastWord(string s) {
+      int i = s.length() - 1;
+      while (i >= 0 && !isalpha(s[i])) --i;
+      int j = i;
+      while (j >= 0 && isalpha(s[j])) --j;
+      return i - j;
     }
   };
 }

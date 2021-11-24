@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/21 19:03
 //
 
 /**
@@ -32,31 +32,22 @@
  *                   奔驰宝马贵者趣，公交自行程序员。
  *                   别人笑我忒疯癫，我笑自己命太贱；
  *                   不见满街漂亮妹，哪个归得程序员？
- */
+*/
 
 #include <bits/stdc++.h>
 #include <gtest/gtest.h>
-
-#include "ListNode.h"
 #include "TreeNode.h"
+#include "ListNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_2055, 1){
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    vector<int> platesBetweenCandles(string s, vector<vector<int>>& queries) {
+      vector<int> v(s.size(), 0);
+      for (int i = 0; i < s.size(); ++i) {
+
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
-      }
-      return ans;
     }
   };
 }

@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/14 12:13
 //
 
 /**
@@ -40,21 +40,21 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_118, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    vector<vector<int>> generate(int numRows) {
+      vector<vector<int>> ans;
+      for (int i = 1; i <= numRows; ++i) {
+        ans.emplace_back(vector<int>(i, 1));
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+      // 0 1 2
+      // (2,1) = (1, 0) + (1, 1)
+      for (int i = 2; i <= numRows - 1; ++i) {
+        for (int j = 1; j <= i - 1; ++j) {
+          ans[i][j] = ans[i - 1][j - 1] + ans[i - 1][j];
+        }
       }
       return ans;
     }

@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/28 10:51
+// Created by XinShuo Wang on 2021/11/12 9:51
 //
 
 /**
@@ -40,20 +40,16 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_31, 1) {
+TEST(leetcode_279, 1) {
   using namespace std;
   class Solution {
+    int arr[10] = {1, 4, 9, 16, 25, 36, 49, 64, 81, 100};
+
    public:
-    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
-      int i;
-      for (i = 0; i < pushed.size(); ++i) {
-        if(pushed[i] == popped[0]) break;
-      }
-      if(i == pushed.size()) return false;
-      while (true){
+    int numSquares(int n) {
+      switch (n) {
 
       }
-      return true;
     }
   };
 }

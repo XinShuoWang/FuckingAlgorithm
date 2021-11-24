@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/11 10:22
 //
 
 /**
@@ -40,23 +40,44 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_1475, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    vector<int> finalPrices(vector<int>& prices) {
+      for (int i = 0; i < prices.size(); ++i) {
+        int ans = INT_MIN;
+        for (int j = i + 1; j < prices.size(); ++j) {
+          if (prices[j] < prices[i]) {
+            ans = prices[j];
+            break;
+          }
+        }
+        prices[i] = ans == INT_MIN ? prices[i] : prices[i] - ans;
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+      return prices;
+    }
+  };
+}
+
+TEST(leetcode_1475, 2) {
+  using namespace std;
+  class Solution {
+   public:
+    vector<int> finalPrices(vector<int>& prices) {
+      stack<pair<int, int>> s;
+      for (int i = 0; i < prices.size(); ++i) {
+        if (s.empty() || s.top().second < prices[i]) {
+          s.push(make_pair(i, prices[i]));
+        } else {
+          while (!s.empty() && s.top().second >= prices[i]) {
+            prices[s.top().first] -= prices[i];
+            s.pop();
+          }
+          s.push(make_pair(i, prices[i]));
+        }
       }
-      return ans;
+      return prices;
     }
   };
 }

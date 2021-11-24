@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/19 19:44
 //
 
 /**
@@ -40,22 +40,28 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_397, 1) {
   using namespace std;
   class Solution {
+    int ans;
+
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    Solution() { ans = INT_MAX; }
+
+    void dfs(long long n, int s) {
+      if (n == 1) {
+        ans = min(ans, s);
+        return;
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+      if (n % 2 == 0) {
+        dfs(n / 2, s + 1);
+      } else {
+        dfs(n - 1, s + 1);
+        dfs(n + 1, s + 1);
       }
+    }
+    int integerReplacement(int n) {
+      dfs(n, 0);
       return ans;
     }
   };

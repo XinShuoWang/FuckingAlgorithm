@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/11 9:54
 //
 
 /**
@@ -32,31 +32,20 @@
  *                   奔驰宝马贵者趣，公交自行程序员。
  *                   别人笑我忒疯癫，我笑自己命太贱；
  *                   不见满街漂亮妹，哪个归得程序员？
- */
+*/
 
 #include <bits/stdc++.h>
 #include <gtest/gtest.h>
-
-#include "ListNode.h"
 #include "TreeNode.h"
+#include "ListNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_jz_20, 1){
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
-      }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
-      }
-      return ans;
+    bool isNumber(string s) {
+      regex r(R"(\s*[+|-]?[\d+.|\d+.\d+|.\d+]([e|E][+|-]?\d+\s*)?)");
+      return regex_match(s, r);
     }
   };
 }

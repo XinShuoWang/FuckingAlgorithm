@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/9 9:45
 //
 
 /**
@@ -40,21 +40,49 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_jz_29, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
-      }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+      int a = -1, b = matrix[0].size(), c = -1, d = matrix.size(), i = 0, j = 0;
+      vector<int> ans;
+      while (a != b && c != d) {
+        while (j > a && j < b && i > c && i < d) {
+          int val = matrix[i][j++];
+          ans.push_back(val);
+          //cout << "1," << val << endl;
+        }
+        // 第一列是缩小范围
+        // 第二列是把多加（减）的补回来，防止超出边界
+        // 第三列是防止重复打印
+        ++c, --j, ++i;
+        if(a == b && c == d) break;
+        if(ans.size() == matrix[0].size() * matrix.size()) break;
+        while (j > a && j < b && i > c && i < d) {
+          int val = matrix[i++][j];
+          ans.push_back(val);
+          //cout << "2," << val << endl;
+        }
+        --b, --i, --j;
+        if(a == b && c == d) break;
+        if(ans.size() == matrix[0].size() * matrix.size()) break;
+        while (j > a && j < b && i > c && i < d) {
+          int val = matrix[i][j--];
+          ans.push_back(val);
+          //cout << "3," << val << endl;
+        }
+        --d, ++j, --i;
+        if(a == b && c == d) break;
+        if(ans.size() == matrix[0].size() * matrix.size()) break;
+        while (j > a && j < b && i > c && i < d) {
+          int val = matrix[i--][j];
+          ans.push_back(val);
+          //cout << "4," << val << endl;
+        }
+        ++a, ++i, ++j;
+        if(a == b && c == d) break;
+        if(ans.size() == matrix[0].size() * matrix.size()) break;
       }
       return ans;
     }

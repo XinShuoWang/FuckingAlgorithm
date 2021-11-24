@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/11 15:58
 //
 
 /**
@@ -40,23 +40,79 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_P1048, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    int N, W, value[100], weight[100], visited[100], ans = INT_MIN;
+
+    void input() {
+      cin >> W >> N;
+      for (int i = 0; i < N; ++i) {
+        cin >> weight[i] >> value[i];
+        visited[i] = 0;
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+    }
+
+    bool ok() {
+      for (int i = 0; i < N; ++i) {
+        if (visited[i] == 0) return false;
       }
-      return ans;
+      return true;
+    }
+
+    void dfs(int x, int y) {
+      if (ok()) {
+        if (x <= W) ans = max(ans, y);
+        return;
+      }
+      for (int i = 0; i < N; ++i) {
+        if (visited[i] == 0) {
+          visited[i] = 1;
+          dfs(x, y);
+          dfs(x + weight[i], y + value[i]);
+          visited[i] = 0;
+        }
+      }
+    }
+
+    int main() {
+      input();
+      dfs(0, 0);
+      cout << ans;
+      return 0;
+    }
+  };
+}
+
+TEST(leetcode_P1048, 2) {
+  using namespace std;
+  class Solution {
+   public:
+    int N, W, value[100], weight[100];
+    map<pair<int, int>, int> m;
+    map<pair<int, int>, int>::iterator it;
+
+    void input() {
+      cin >> W >> N;
+      for (int i = 0; i < N; ++i) {
+        cin >> weight[i] >> value[i];
+      }
+    }
+
+    int dfs(int w, int i) {
+      if (i == N) return 0;
+      if ((it = m.find(make_pair(w, i))) != m.end()) return it->second;
+      int a = w - weight[i] >= 0 ? dfs(w - weight[i], i + 1) + value[i] : 0;
+      int b = dfs(w, i + 1);
+      m[make_pair(w, i)] = max(a, b);
+      return max(a, b);
+    }
+
+    int main() {
+      input();
+      cout << dfs(W, 0);
+      return 0;
     }
   };
 }

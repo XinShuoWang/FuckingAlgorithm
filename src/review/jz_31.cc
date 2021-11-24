@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/10 9:26
 //
 
 /**
@@ -40,23 +40,25 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_jz_31, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+      int i = 0;
+      stack<int> s;
+      for (int num : pushed) {
+        s.push(num);
+        while (!s.empty() && s.top() == popped[i]){
+          s.pop();
+          i++;
+        }
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
-      }
-      return ans;
+      return s.empty();
     }
   };
+
+  Solution solution;
+  vector<int> a{1, 2, 3, 4, 5}, b{4, 5, 3, 2, 1};
+  solution.validateStackSequences(a, b);
 }

@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/15 10:18
 //
 
 /**
@@ -40,23 +40,70 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_1395, 1) {
   using namespace std;
   class Solution {
+    vector<int> path;
+    unordered_map<int64_t, int> cache;
+    unordered_map<int64_t, int>::iterator it;
+
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
-      }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+    int64_t make(int i) {
+      int64_t ans = 0;
+      switch (path.size()) {
+        case 0:
+          ans <<= 10;
+          ans <<= 10;
+          ans <<= 10;
+          ans += i;
+          break;
+        case 1:
+          ans += path[0];
+          ans <<= 10;
+          ans <<= 10;
+          ans <<= 10;
+          ans += i;
+          break;
+        case 2:
+          ans += path[0];
+          ans <<= 10;
+          ans += path[1];
+          ans <<= 10;
+          ans <<= 10;
+          ans += i;
+          break;
+        case 3:
+          ans += path[0];
+          ans <<= 10;
+          ans += path[1];
+          ans <<= 10;
+          ans += path[2];
+          ans <<= 10;
+          ans += i;
+          break;
       }
       return ans;
     }
+
+    int work(vector<int>& rating, int i) {
+      if (path.size() == 3) {
+        if ((rating[path[0]] > rating[path[1]] && rating[path[1]] > rating[path[2]]) ||
+            (rating[path[0]] < rating[path[1]] && rating[path[1]] < rating[path[2]])) {
+          return 1;
+        }
+        return 0;
+      }
+      if (i >= rating.size()) return 0;
+      if ((it = cache.find(make(i))) != cache.end()) return it->second;
+      int ans = 0;
+      path.push_back(i);
+      ans += work(rating, i + 1);
+      path.pop_back();
+      ans += work(rating, i + 1);
+      cache[make(i)] = ans;
+      return ans;
+    }
+
+    int numTeams(vector<int>& rating) { return work(rating, 0); }
   };
 }

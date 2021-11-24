@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/11 9:45
 //
 
 /**
@@ -40,23 +40,19 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_jz_44, 1) {
   using namespace std;
   class Solution {
+    string ans;
+
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    Solution() {
+      for (int i = 0; i < 10000; ++i) {
+        ans.append(to_string(i));
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
-      }
-      return ans;
+      cout << ans.length() << endl;
     }
+
+    int findNthDigit(int n) { return ans[n]; }
   };
 }

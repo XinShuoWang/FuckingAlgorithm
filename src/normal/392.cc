@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/14 12:33
 //
 
 /**
@@ -40,23 +40,29 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_392, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    bool isSubsequence(string s, string t) {
+      if (s.length() == 0) return true;
+      if (t.length() == 0) return false;
+      unordered_map<char, queue<int>> m;
+      for (int i = 0; i < t.size(); ++i) {
+        if (m.find(t[i]) == m.end()) {
+          m[t[i]] = queue<int>();
+        }
+        m[t[i]].push(i);
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+      int idx = INT_MIN;
+      for (int i = 0; i < s.size(); ++i) {
+        if (m.find(s[i]) == m.end() || m[s[i]].empty()) return false;
+        while (!m[s[i]].empty() && m[s[i]].front() < idx) m[s[i]].pop();
+        if (m[s[i]].empty()) return false;
+        idx = m[s[i]].front();
+        m[s[i]].pop();
       }
-      return ans;
+      return true;
     }
   };
 }

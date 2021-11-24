@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/10/26 10:06
+// Created by XinShuo Wang on 2021/11/23 10:28
 //
 
 /**
@@ -40,22 +40,35 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_jz_66, 1) {
+TEST(leetcode_61, 1) {
   using namespace std;
   class Solution {
    public:
-    vector<int> constructArr(vector<int>& a) {
-      vector<int> ans(a.size(), 1);
-      int t = 1;
-      for (int i = 0; i < ans.size(); ++i) {
-        ans[i] = t;
-        t *= a[i];
+    ListNode* rotateRight(ListNode* head, int k) {
+      int len = 0;
+      ListNode* move = head;
+      list<ListNode*> l;
+      while (move != nullptr) {
+        l.push_back(move);
+        move = move->next;
+        len++;
       }
-      t = 1;
-      for (int i = ans.size() - 1; i >= 0; ++i) {
-        ans[i] *= t;
-        t *= a[i];
+      if (len == 0) return nullptr;
+      k %= len;
+      while (k > 0) {
+        l.push_front(l.back());
+        l.pop_back();
+        k--;
       }
+      ListNode* ans;
+      ans = move = l.front();
+      l.pop_front();
+      while (!l.empty()) {
+        move->next = l.front();
+        l.pop_front();
+        move = move->next;
+      }
+      move->next = nullptr;
       return ans;
     }
   };
