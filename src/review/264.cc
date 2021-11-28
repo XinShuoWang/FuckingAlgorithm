@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/11/24 10:28
+// Created by XinShuo Wang on 2021/11/26 12:20
 //
 
 /**
@@ -40,27 +40,63 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_42, 1) {
+TEST(leetcode_264, 1) {
   using namespace std;
   class Solution {
    public:
-    int trap(vector<int>& height) {
-      int ans = 0;
-      stack<int> stk;
-      int n = height.size();
+    bool isUgly(int n) {
+      if (n <= 0) return false;
+      if (n == 1 || n == 2 || n == 3 || n == 5) return true;
+      bool ans = false;
+      if (n % 2 == 0) {
+        ans |= isUgly(n / 2);
+        if (ans) return ans;
+      }
+      if (n % 3 == 0) {
+        ans |= isUgly(n / 3);
+        if (ans) return ans;
+      }
+      if (n % 5 == 0) {
+        ans |= isUgly(n / 5);
+        if (ans) return ans;
+      }
+      return ans;
+    }
+
+    int nthUglyNumber(int n) {
+      int ans, count = 1;
       for (int i = 0; i < n; ++i) {
-        while (!stk.empty() && height[i] > height[stk.top()]) {
-          int top = stk.top();
-          stk.pop();
-          if (stk.empty()) {
-            break;
+        while (!isUgly(count)) count++;
+        ans = count++;
+      }
+      return ans;
+    }
+  };
+}
+
+TEST(leetcode_264, 2) {
+  using namespace std;
+  class Solution {
+   public:
+    typedef long long ll;
+
+    int nthUglyNumber(ll n) {
+      array<int, 3> factors{2, 3, 5};
+      priority_queue<ll, vector<ll>, greater<ll>> q;
+      unordered_set<ll> seen;
+      q.push(1);
+      seen.insert(1);
+      ll ans;
+      for (int i = 0; i < n; ++i) {
+        ll curr = q.top();
+        q.pop();
+        ans = curr;
+        for (auto factor : factors) {
+          if(seen.find(factor*curr)==seen.end()){
+            seen.insert(factor*curr);
+            q.push(factor*curr);
           }
-          int left = stk.top();
-          int currWidth = i - left - 1;
-          int currHeight = min(height[left], height[i]) - height[top];
-          ans += currWidth * currHeight;
         }
-        stk.push(i);
       }
       return ans;
     }

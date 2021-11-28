@@ -93,3 +93,32 @@ TEST(leetcode_139, 2) {
     }
   };
 }
+
+
+TEST(leetcode_139, 3) {
+  using namespace std;
+  class Solution {
+    unordered_map<int, int> cache;
+    unordered_map<int, int>::iterator it;
+
+   public:
+    bool dfs(string& s, unordered_set<string>& ss, int start) {
+      if (start >= s.size()) return true;
+      if ((it = cache.find(start)) != cache.end()) return it->second;
+      bool ans = false;
+      for (int i = start + 1; i <= s.size(); ++i) {
+        if (ss.find(s.substr(start, i - start)) != ss.end()) {
+          ans = dfs(s, ss, i);
+          if (ans) break;
+        }
+      }
+      cache[start] = ans;
+      return ans;
+    }
+
+    bool wordBreak(string& s, vector<string>& wordDict) {
+      unordered_set<string> ss(wordDict.begin(), wordDict.end());
+      return dfs(s, ss, 0);
+    }
+  };
+}

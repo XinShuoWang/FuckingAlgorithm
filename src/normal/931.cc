@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/11/24 10:28
+// Created by XinShuo Wang on 2021/11/27 10:08
 //
 
 /**
@@ -40,27 +40,64 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_42, 1) {
+TEST(leetcode_931, 1) {
   using namespace std;
   class Solution {
+    int ans;
+
    public:
-    int trap(vector<int>& height) {
-      int ans = 0;
-      stack<int> stk;
-      int n = height.size();
-      for (int i = 0; i < n; ++i) {
-        while (!stk.empty() && height[i] > height[stk.top()]) {
-          int top = stk.top();
-          stk.pop();
-          if (stk.empty()) {
-            break;
-          }
-          int left = stk.top();
-          int currWidth = i - left - 1;
-          int currHeight = min(height[left], height[i]) - height[top];
-          ans += currWidth * currHeight;
-        }
-        stk.push(i);
+    Solution() { ans = INT_MAX; }
+
+    void dfs(vector<vector<int>>& matrix, int x, int y, int val) {
+      if (x >= matrix.size()) {
+        ans = min(ans, val);
+        return;
+      }
+      if (y - 1 >= 0) dfs(matrix, x + 1, y - 1, val + matrix[x][y]);
+      dfs(matrix, x + 1, y, val + matrix[x][y]);
+      if (y + 1 < matrix[0].size())
+        dfs(matrix, x + 1, y + 1, val + matrix[x][y]);
+    }
+
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+      for (int i = 0; i < matrix[0].size(); ++i) {
+        dfs(matrix, 0, i, 0);
+      }
+      return ans;
+    }
+  };
+}
+
+TEST(leetcode_931, 2) {
+  using namespace std;
+  class Solution {
+    unordered_map<int, int> cache;
+    unordered_map<int, int>::iterator it;
+
+    int combine(int x, int y) {
+      int ans = x;
+      ans <<= 16;
+      ans += y;
+      return ans;
+    }
+
+   public:
+    int dfs(vector<vector<int>>& matrix, int x, int y) {
+      if (x >= matrix.size()) return 0;
+      if ((it = cache.find(combine(x, y))) != cache.end()) return it->second;
+      int ans = INT_MAX;
+      if (y - 1 >= 0) ans = min(ans, dfs(matrix, x + 1, y - 1) + matrix[x][y]);
+      ans = min(ans, dfs(matrix, x + 1, y) + matrix[x][y]);
+      if (y + 1 < matrix[0].size())
+        ans = min(ans, dfs(matrix, x + 1, y + 1) + matrix[x][y]);
+      cache[combine(x, y)] = ans;
+      return ans;
+    }
+
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+      int ans = INT_MAX;
+      for (int i = 0; i < matrix[0].size(); ++i) {
+        ans = min(ans, dfs(matrix, 0, i));
       }
       return ans;
     }

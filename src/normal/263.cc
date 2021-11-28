@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/11/24 10:28
+// Created by XinShuo Wang on 2021/11/26 12:19
 //
 
 /**
@@ -40,27 +40,48 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_42, 1) {
+TEST(leetcode_263, 1) {
   using namespace std;
   class Solution {
    public:
-    int trap(vector<int>& height) {
-      int ans = 0;
-      stack<int> stk;
-      int n = height.size();
-      for (int i = 0; i < n; ++i) {
-        while (!stk.empty() && height[i] > height[stk.top()]) {
-          int top = stk.top();
-          stk.pop();
-          if (stk.empty()) {
-            break;
-          }
-          int left = stk.top();
-          int currWidth = i - left - 1;
-          int currHeight = min(height[left], height[i]) - height[top];
-          ans += currWidth * currHeight;
-        }
-        stk.push(i);
+    bool dfs(long long n, long long v) {
+      if (v > n) return false;
+      if (v == n) return true;
+      int ans = false;
+      for (int vv : {2, 3, 5}) {
+        ans |= dfs(n, v * vv);
+        if (ans) return true;
+      }
+      return ans;
+    }
+
+    bool isUgly(int n) {
+      if (n == 1) return true;
+      if (n <= 0) return false;
+      return dfs(n, 1);
+    }
+  };
+}
+
+TEST(leetcode_263, 2) {
+  using namespace std;
+  class Solution {
+   public:
+    bool isUgly(int n) {
+      if (n <= 0) return false;
+      if (n == 1 || n == 2 || n == 3 || n == 5) return true;
+      bool ans = false;
+      if (n % 2 == 0) {
+        ans |= isUgly(n / 2);
+        if (ans) return ans;
+      }
+      if (n % 3 == 0) {
+        ans |= isUgly(n / 3);
+        if (ans) return ans;
+      }
+      if (n % 5 == 0) {
+        ans |= isUgly(n / 5);
+        if (ans) return ans;
       }
       return ans;
     }

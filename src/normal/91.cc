@@ -36,3 +36,38 @@ TEST(leetcode_91, 1) {
     }
   };
 }
+
+TEST(leetcode_91, 2) {
+  using namespace std;
+  class Solution {
+    unordered_map<int, int> cache;
+    unordered_map<int, int>::iterator it;
+
+   public:
+    int dfs(string& s, int step) {
+      if (step >= s.size()) return 1;
+      if ((it = cache.find(step)) != cache.end()) return it->second;
+      int ans = 0;
+      switch (s[step]) {
+        case '0':
+          break;
+        case '1':
+          ans += dfs(s, step + 1);
+          if (step + 2 <= s.size()) ans += dfs(s, step + 2);
+          break;
+        case '2':
+          ans += dfs(s, step + 1);
+          if (step + 1 < s.size() && s[step + 1] <= '6' && s[step + 1] >= '0')
+            ans += dfs(s, step + 2);
+          break;
+        default:
+          ans += dfs(s, step + 1);
+          break;
+      }
+      cache[step] = ans;
+      return ans;
+    }
+
+    int numDecodings(string& s) { return dfs(s, 0); }
+  };
+}

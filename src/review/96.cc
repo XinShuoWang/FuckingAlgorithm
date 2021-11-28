@@ -1,5 +1,5 @@
 //
-// Created by XinShuo Wang on 2021/11/24 10:28
+// Created by XinShuo Wang on 2021/11/27 11:04
 //
 
 /**
@@ -40,29 +40,29 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 
-TEST(leetcode_42, 1) {
+TEST(leetcode_96, 1) {
   using namespace std;
   class Solution {
    public:
-    int trap(vector<int>& height) {
-      int ans = 0;
-      stack<int> stk;
-      int n = height.size();
-      for (int i = 0; i < n; ++i) {
-        while (!stk.empty() && height[i] > height[stk.top()]) {
-          int top = stk.top();
-          stk.pop();
-          if (stk.empty()) {
-            break;
+    int numTrees(int n) {
+      switch (n) {
+        case 1:
+          return 1;
+        case 2:
+          return 2;
+        case 3:
+          return 5;
+        default:
+          array<int, 20> dp{1, 1, 2, 5};
+          for (int i = 4; i <= n; ++i) {
+            int ans = 0;
+            for (int j = 1; j <= i; ++j) {
+              ans += dp[j - 1] * dp[i - j];
+            }
+            dp[i] = ans;
           }
-          int left = stk.top();
-          int currWidth = i - left - 1;
-          int currHeight = min(height[left], height[i]) - height[top];
-          ans += currWidth * currHeight;
-        }
-        stk.push(i);
+          return dp[n];
       }
-      return ans;
     }
   };
 }
