@@ -101,13 +101,22 @@ TEST(dp_5, 3) {
 TEST(dp_5, 4) {
   using namespace std;
   class Solution {
+    pair<int, int> expand(string& s, int left, int right) {
+      while (left >= 0 && right < s.length() && s[left] == s[right])
+        left--, right++;
+      return make_pair(left + 1, right - 1);
+    }
+
    public:
-    string longestPalindrome(string s) {
-      int n = s.length();
-      vector<vector<bool>> v(n, vector<bool>(n, true));
-      for (int i = 0; i < n; ++i) {
-        
+    string longestPalindrome(string& s) {
+      int start = 0, end = 0;
+      for (int i = 0; i < s.length(); ++i) {
+        auto [a, b] = expand(s, i, i);
+        auto [c, d] = expand(s, i, i + 1);
+        if (b - a > end - start) end = b, start = a;
+        if (d - c > end - start) end = d, start = c;
       }
+      return s.substr(start, end - start - 1);
     }
   };
 }
