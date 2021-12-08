@@ -66,3 +66,21 @@ TEST(leetcode_300, 2) {
     }
   };
 }
+
+TEST(leetcode_300, 3) {
+  using namespace std;
+  class Solution {
+   public:
+    int lengthOfLIS(vector<int>& nums) {
+      vector<int> v(nums.size(), 1);
+      int ans = INT_MIN;
+      for (int i = 0; i < nums.size(); ++i) {
+        for (int j = 0; j < i; ++j) {
+          if (v[i] > v[j]) v[i] = max(v[i], v[j] + 1);
+          ans = max(ans, v[i]);
+        }
+      }
+      return ans;
+    }
+  };
+}
