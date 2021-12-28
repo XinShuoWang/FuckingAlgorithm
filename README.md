@@ -6,6 +6,8 @@
       //
       #[[#include]]# <bits/stdc++.h>
       #[[#include]]# <gtest/gtest.h>
+      #[[#include]]# "ListNode.h"
+      #[[#include]]# "TreeNode.h"
     
       TEST(leetcode_${FILE_NAME}, 1){
         using namespace std;
