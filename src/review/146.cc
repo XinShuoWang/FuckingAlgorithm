@@ -119,3 +119,52 @@ TEST(others_146, 1) {
    * obj->put(key,value);
    */
 }
+
+
+TEST(leetcode_146, 2) {
+  using namespace std;
+  class LRUCache {
+    int capacity_;
+    list<pair<int, int>> list_;
+    map<int, list<pair<int, int>>::iterator> map_;
+
+   public:
+    LRUCache(int capacity) { capacity_ = capacity; }
+
+    int get(int key) {
+      // cout << "Get:" << key << endl;
+      map<int, list<pair<int, int>>::iterator>::iterator it;
+      if ((it = map_.find(key)) != map_.end()) {
+        int value = it->second->second;
+        list_.erase(it->second);
+        list_.push_front(make_pair(key, value));
+        map_[key] = list_.begin();
+        return value;
+      } else {
+        return -1;
+      }
+    }
+
+    void put(int key, int value) {
+      // cout << "Put:" << key << "," << value << endl;
+      map<int, list<pair<int, int>>::iterator>::iterator it;
+      if ((it = map_.find(key)) == map_.end()) {
+        if (map_.size() >= capacity_) {
+          int k = list_.back().first;
+          list_.pop_back();
+          map_.erase(k);
+        }
+      } else {
+        list_.erase(it->second);
+      }
+      list_.push_front(make_pair(key, value));
+      map_[key] = list_.begin();
+    }
+  };
+  /**
+   * Your LRUCache object will be instantiated and called as such:
+   * LRUCache* obj = new LRUCache(capacity);
+   * int param_1 = obj->get(key);
+   * obj->put(key,value);
+   */
+}
